@@ -1,0 +1,226 @@
+================================================================================
+PANDUAN LENGKAP PEMASANGAN SCRIPT AUTO SAFELINK
+Website / Blogger / WordPress Integration Guide
+Author: Robbi Rizaldi (https://robbirizaldi.my.id)
+================================================================================
+
+DAFTAR ISI:
+1. Penjelasan Singkat
+2. Script Auto Safelink Siap Pakai (Full Code)
+3. Cara Pasang di Blogger (Blogspot)
+4. Cara Pasang di WordPress
+5. Cara Pasang di Website HTML Biasa
+6. Penjelasan Konfigurasi (Whitelist vs Blacklist)
+7. Cara Pengujian (Testing)
+
+--------------------------------------------------------------------------------
+1. PENJELASAN SINGKAT
+--------------------------------------------------------------------------------
+Script Auto Safelink ini berfungsi untuk mengubah seluruh link tujuan (misalnya link 
+download Google Drive, Mediafire, Mega, dll) di artikel/website Anda secara otomatis 
+menjadi format Safelink (mengarah ke go.html), tanpa Anda harus mengubah link postingan 
+secara manual satu per satu.
+
+Fitur:
+- 100% Client-Side menggunakan enkripsi AES.
+- Pilihan Mode: Whitelist (hanya domain tertentu) atau Blacklist (semua link kecuali yang dikecualikan).
+- Otomatis membuka di tab baru (target="_blank" rel="noopener noreferrer").
+- Mengabaikan anchor internal (#), tel:, mailto:, javascript:.
+
+
+--------------------------------------------------------------------------------
+2. SCRIPT AUTO SAFELINK SIAP PAKAI (FULL CODE)
+--------------------------------------------------------------------------------
+Copy dan paste seluruh kode di bawah ini:
+
+<!-- ==================== AWAL SCRIPT AUTO SAFELINK ==================== -->
+<!-- 1. Library CryptoJS AES -->
+<script src="https://robbirizaldi.my.id/assets/js/tools/cryptojs-aes.min.js"></script>
+
+<!-- 2. Engine Auto Safelink -->
+<script type="text/javascript">
+(function() {
+  "use strict";
+
+  // ====================================================================
+  // PENGATURAN / KONFIGURASI
+  // ====================================================================
+  var SAFELINK_CONFIG = {
+    // Ganti dengan URL domain halaman go.html Safelink Anda:
+    portalUrl: "https://robbirizaldi.my.id/tools/safelink/go.html",
+
+    // Salt kunci enkripsi (wajib sama persis dengan yang ada di safelink.js):
+    appSalt: "rr_safelink_2026_salt",
+
+    // MODE PEMILIHAN LINK:
+    // - "whitelist" : HANYA domain di daftar whitelistDomains yang akan di-safelink.
+    // - "blacklist" : SEMUA link eksternal di-safelink, KECUALI yang ada di excludeDomains.
+    mode: "whitelist",
+
+    // DAFTAR DOMAIN UNTUK MODE "whitelist" (Misal: web penyimpan file / download):
+    whitelistDomains: [
+      "drive.google.com",
+      "mediafire.com",
+      "mega.nz",
+      "zippyshare.com",
+      "dropbox.com",
+      "sfile.mobi",
+      "1drv.ms",
+      "github.com"
+    ],
+
+    // DAFTAR DOMAIN YANG DIKECUALIKAN UNTUK MODE "blacklist":
+    excludeDomains: [
+      "robbirizaldi.my.id",
+      "localhost",
+      "facebook.com",
+      "instagram.com",
+      "twitter.com",
+      "x.com",
+      "youtube.com",
+      "linkedin.com",
+      "wa.me",
+      "t.me",
+      "blogger.com",
+      "google.com"
+    ]
+  };
+
+  function shouldConvert(urlStr) {
+    if (!urlStr) return false;
+    try {
+      var url = new URL(urlStr, window.location.href);
+
+      // Hanya proses protokol http dan https
+      if (url.protocol !== "http:" && url.protocol !== "https:") {
+        return false;
+      }
+
+      var hostname = url.hostname.toLowerCase();
+
+      // Cek berdasarkan Mode yang dipilih
+      if (SAFELINK_CONFIG.mode === "whitelist") {
+        return SAFELINK_CONFIG.whitelistDomains.some(function(d) {
+          return hostname === d || hostname.endsWith("." + d);
+        });
+      } else {
+        // Mode blacklist: cek apakah domain masuk daftar exclude
+        var isExcluded = SAFELINK_CONFIG.excludeDomains.some(function(d) {
+          return hostname === d || hostname.endsWith("." + d);
+        });
+        return !isExcluded;
+      }
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function runAutoSafelink() {
+    var links = document.querySelectorAll("a[href]");
+    links.forEach(function(link) {
+      var rawHref = link.getAttribute("href");
+      if (!rawHref) return;
+
+      // Jangan convert jika link sudah merupakan link safelink itu sendiri
+      if (rawHref.indexOf(SAFELINK_CONFIG.portalUrl) !== -1) return;
+
+      if (shouldConvert(rawHref)) {
+        // Enkripsi payload URL menggunakan AES
+        var payload = JSON.stringify({ u: rawHref, p: 0, t: Date.now() });
+        var cipher = CryptoJS.AES.encrypt(payload, SAFELINK_CONFIG.appSalt).toString();
+
+        // Ubah href ke halaman portal Safelink
+        link.href = SAFELINK_CONFIG.portalUrl + "?link=" + encodeURIComponent(cipher);
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+      }
+    });
+  }
+
+  // Eksekusi otomatis saat halaman selesai dimuat
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", runAutoSafelink);
+  } else {
+    runAutoSafelink();
+  }
+})();
+</script>
+<!-- ==================== AKHIR SCRIPT AUTO SAFELINK ==================== -->
+
+
+--------------------------------------------------------------------------------
+3. CARA PASANG DI BLOGGER (BLOGSPOT)
+--------------------------------------------------------------------------------
+1. Masuk ke Dashboard Blogger Anda (https://draft.blogger.com).
+2. Di menu samping kiri, klik "Tema" (Theme).
+3. Klik tombol panah bawah di sebelah tombol "Sesuaikan" (Customize), lalu pilih "Edit HTML".
+4. Klik di dalam area kode HTML tema Anda, lalu tekan Ctrl + F (pencarian).
+5. Cari tag penutup </body> (biasanya ada di baris paling bawah).
+6. Salin seluruh kode pada Bagian 2 di atas, dan tempelkan (paste) tepat di ATAS tag </body>.
+7. Klik tombol "Simpan" (ikon disket di pojok kanan atas). Selesai!
+
+
+--------------------------------------------------------------------------------
+4. CARA PASANG DI WORDPRESS
+--------------------------------------------------------------------------------
+Opsi A (Menggunakan Plugin Footer):
+1. Masuk ke Dashboard WP-Admin.
+2. Pasang plugin seperti "Insert Headers and Footers" / "WPCode".
+3. Buka menu plugin tersebut, lalu tempelkan kode di bagian "Footer Scripts".
+4. Klik Save Changes.
+
+Opsi B (Edit File footer.php):
+1. Buka menu Appearance > Theme File Editor.
+2. Buka file footer.php.
+3. Paste kode tepat sebelum tag </body> lalu klik Update File.
+
+
+--------------------------------------------------------------------------------
+5. CARA PASANG DI WEBSITE HTML BIASA
+--------------------------------------------------------------------------------
+Buka file HTML Anda (misal index.html atau single.html), lalu paste kode di atas 
+tepat sebelum tag </body> penutup halaman.
+
+
+--------------------------------------------------------------------------------
+6. PENJELASAN KONFIGURASI (WHITELIST VS BLACKLIST)
+--------------------------------------------------------------------------------
+Anda bisa menyesuaikan perilaku script di bagian:
+
+A. Mengganti Mode:
+   - Jika ingin HANYA link download tertentu yang diubah:
+     mode: "whitelist"
+   - Jika ingin SEMUA link eksternal otomatis diubah kecuali medsos:
+     mode: "blacklist"
+
+B. Menambahkan Domain Download (Whitelist):
+   Tambahkan nama domain ke dalam array whitelistDomains, contoh:
+   whitelistDomains: [
+     "drive.google.com",
+     "mediafire.com",
+     "terabox.com",
+     "anonfiles.com"
+   ]
+
+C. Menambahkan Domain yang Dikecualikan (Blacklist):
+   Tambahkan nama domain ke dalam array excludeDomains, contoh:
+   excludeDomains: [
+     "domainanda.com",
+     "facebook.com",
+     "whatsapp.com"
+   ]
+
+
+--------------------------------------------------------------------------------
+7. CARA PENGUJIAN (TESTING)
+--------------------------------------------------------------------------------
+1. Buka salah satu artikel/halaman blog Anda yang memiliki link download.
+2. Arahkan mouse (hover) di atas link download tersebut.
+3. Perhatikan alamat URL di pojok kiri bawah browser Anda:
+   - Jika berhasil, URL akan otomatis berubah menjadi:
+     https://robbirizaldi.my.id/tools/safelink/go.html?link=...
+4. Klik link tersebut, Anda akan diarahkan ke halaman Safelink portal, 
+   menunggu countdown 8 detik, lalu tombol "VISIT DESTINATION LINK" muncul 
+   dan mengarahkan pengunjung ke link download aslinya!
+================================================================================
+

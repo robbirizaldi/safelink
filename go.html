@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R47CCHK41J"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-R47CCHK41J');
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Safelink - Verification and destination unlock portal."
+    />
+    <title>Safelink Portal - Robbi Rizaldi</title>
+    <link rel="icon" href="../../assets/img/main/logo-r.svg" type="image/svg+xml" sizes="any" />
+    <link rel="stylesheet" href="assets/css/safelink.css?v=1792380000" />
+  </head>
+  <body>
+    <div class="safelink-page-wrapper">
+      <!-- HEADER -->
+      <header class="safelink-header">
+        <div class="inner">
+          <a href="index.html" class="safelink-brand">
+            <div class="safelink-brand-icon">S</div>
+            <h1>Safelink</h1>
+          </a>
+          <a href="index.html" class="safelink-nav-back">
+            <span>CREATE YOUR OWN SAFELINK</span>
+          </a>
+        </div>
+      </header>
+
+      <!-- MAIN CONTAINER -->
+      <main class="safelink-container">
+        <!-- TOP DUMMY AD SLOT -->
+        <div class="dummy-ad-wrapper">
+          <div class="dummy-ad dummy-ad-728">
+            [ REKLAME / IKLAN DUMMY 728x90 ]
+            <span>Tempatkan kode iklan AdSense banner atas di sini</span>
+          </div>
+        </div>
+
+        <!-- VERIFICATION CARD -->
+        <div class="safelink-card">
+          <h2 class="safelink-card-title">Link Verification</h2>
+
+          <!-- Alert / Error message -->
+          <div id="safelink-alert" class="safelink-alert"></div>
+
+          <!-- COUNTDOWN TIMER SECTION -->
+          <div id="timer-container" class="timer-container">
+            <div class="timer-circle" id="timer-count">8</div>
+            <p class="timer-message">
+              Verifying and preparing your destination link... Please wait a moment.
+            </p>
+          </div>
+
+          <!-- MIDDLE DUMMY AD SLOT (INSIDE CARD) -->
+          <div class="dummy-ad-wrapper">
+            <div class="dummy-ad dummy-ad-300">
+              [ REKLAME / IKLAN DUMMY 300x250 ]
+              <span>Tempatkan kode iklan AdSense banner kotak di sini</span>
+            </div>
+          </div>
+
+          <!-- PASSWORD UNLOCK SECTION (Hidden by default, shown if protected) -->
+          <div id="unlock-box" class="unlock-box" style="display: none;">
+            <p style="font-weight: 600; margin-bottom: 12px; color: var(--pastel-text-main);">
+              &#128274; This link is password protected. Enter the password to unlock:
+            </p>
+            <input
+              type="password"
+              id="unlock-password"
+              class="safelink-input"
+              placeholder="Enter link password"
+              autocomplete="current-password"
+            />
+            <button type="button" id="btn-unlock" class="safelink-btn safelink-btn-primary" style="width: 100%;">
+              UNLOCK &amp; VIEW LINK
+            </button>
+          </div>
+
+          <!-- VISIT LINK SECTION (Hidden by default, revealed when unlocked) -->
+          <div id="visit-box" style="display: none; text-align: center; padding: 20px 0;">
+            <p style="font-size: 15px; font-weight: 600; color: var(--pastel-primary); margin-bottom: 16px;">
+              &#10004; Your destination link is ready!
+            </p>
+            <a
+              id="btn-visit"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="safelink-btn safelink-btn-primary"
+              style="font-size: 16px; padding: 14px 28px;"
+            >
+              VISIT DESTINATION LINK &rarr;
+            </a>
+          </div>
+
+          <!-- Fallback button if link parameter is missing -->
+          <div style="text-align: center; margin-top: 15px;">
+            <a id="btn-create-link" href="index.html" class="safelink-btn safelink-btn-secondary" style="display: none;">
+              Go to Safe Link Generator
+            </a>
+          </div>
+        </div>
+
+        <!-- BOTTOM DUMMY AD SLOT -->
+        <div class="dummy-ad-wrapper">
+          <div class="dummy-ad dummy-ad-728">
+            [ REKLAME / IKLAN DUMMY 728x90 ]
+            <span>Tempatkan kode iklan AdSense banner bawah di sini</span>
+          </div>
+        </div>
+      </main>
+
+      <!-- FOOTER -->
+      <footer class="safelink-footer">
+        <p>
+          Safelink Portal &copy; 2026 &middot; Protected with client-side AES by <a href="../../">Robbi Rizaldi</a>.
+        </p>
+      </footer>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="assets/js/cryptojs-aes.min.js?v=1792380000"></script>
+    <script src="assets/js/safelink.js?v=1792380000"></script>
+  </body>
+</html>
+
