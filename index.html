@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R47CCHK41J"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-R47CCHK41J');
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Safelink - Client-side safe link generator with password protection and countdown safeguard."
+    />
+    <title>Safelink Generator - Robbi Rizaldi</title>
+    <link rel="icon" href="../../assets/img/main/logo-r.svg" type="image/svg+xml" sizes="any" />
+    <link rel="stylesheet" href="assets/css/safelink.css?v=1792380000" />
+  </head>
+  <body>
+    <div class="safelink-page-wrapper">
+      <!-- HEADER -->
+      <header class="safelink-header">
+        <div class="inner">
+          <a href="index.html" class="safelink-brand">
+            <div class="safelink-brand-icon">S</div>
+            <h1>Safelink</h1>
+          </a>
+          <a href="../../#page-tools" class="safelink-nav-back">
+            <span>&larr; BACK TO TOOLS</span>
+          </a>
+        </div>
+      </header>
+
+      <!-- MAIN CONTAINER -->
+      <main class="safelink-container">
+        <!-- TOP DUMMY AD SLOT -->
+        <div class="dummy-ad-wrapper">
+          <div class="dummy-ad dummy-ad-728">
+            [ REKLAME / IKLAN DUMMY 728x90 ]
+            <span>Tempatkan kode iklan AdSense banner atas di sini</span>
+          </div>
+        </div>
+
+        <!-- GENERATOR CARD -->
+        <div class="safelink-card">
+          <h2 class="safelink-card-title">Safe Link Generator</h2>
+          <p class="safelink-card-desc">
+            Encrypt and safeguard your confidential or private links directly in your browser. Optionally protect your link with a custom password.
+          </p>
+
+          <form id="safelink-form" onsubmit="return false;">
+            <div class="safelink-form-group">
+              <label for="original-url" class="safelink-label">Original Destination URL</label>
+              <input
+                type="url"
+                id="original-url"
+                class="safelink-input"
+                placeholder="https://example.com/file-or-page-link"
+                required
+                autocomplete="off"
+              />
+            </div>
+
+            <!-- Optional Password Box -->
+            <div id="password-box" class="password-box">
+              <label for="link-password" class="safelink-label">Set Password Protection (Optional)</label>
+              <input
+                type="text"
+                id="link-password"
+                class="safelink-input"
+                placeholder="Enter password only intended recipients know"
+                autocomplete="off"
+              />
+              <span style="font-size: 12px; color: var(--pastel-text-muted); display: block; margin-top: 4px;">
+                Visitors must enter this exact password to unlock the destination link.
+              </span>
+            </div>
+
+            <div class="safelink-actions">
+              <button type="button" id="btn-generate" class="safelink-btn safelink-btn-primary">
+                GENERATE SAFE LINK
+              </button>
+              <button type="button" id="btn-toggle-lock" class="safelink-btn safelink-btn-secondary">
+                LOCK WITH PASSWORD
+              </button>
+            </div>
+          </form>
+
+          <!-- RESULT SECTION -->
+          <div id="result-box" class="safelink-result-box">
+            <label for="result-url" class="safelink-label">Your Safe Link Ready to Share:</label>
+            <div class="result-input-group">
+              <input
+                type="text"
+                id="result-url"
+                class="safelink-input"
+                readonly
+                onclick="this.focus(); this.select();"
+              />
+              <button type="button" id="btn-copy" class="safelink-btn safelink-btn-primary">
+                COPY LINK
+              </button>
+              <a id="btn-test" href="#" target="_blank" class="safelink-btn safelink-btn-outline">
+                OPEN &nearr;
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- FEATURES SECTION -->
+        <div class="safelink-features">
+          <div class="feature-card">
+            <div class="feature-icon">&#128274;</div>
+            <h3 class="feature-title">Password Protection</h3>
+            <p class="feature-desc">
+              Lock your private links with passwords. Only people with the password can unlock the final URL.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">&#9201;</div>
+            <h3 class="feature-title">Countdown Delay</h3>
+            <p class="feature-desc">
+              Clean 8-second countdown timer safeguard before visitors can access the target URL.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">&#128737;</div>
+            <h3 class="feature-title">100% Client-Side</h3>
+            <p class="feature-desc">
+              Fast and secure AES encryption executed completely in the browser without database or backend lag.
+            </p>
+          </div>
+        </div>
+
+        <!-- BOTTOM DUMMY AD SLOT -->
+        <div class="dummy-ad-wrapper">
+          <div class="dummy-ad dummy-ad-728">
+            [ REKLAME / IKLAN DUMMY 728x90 ]
+            <span>Tempatkan kode iklan AdSense banner bawah di sini</span>
+          </div>
+        </div>
+      </main>
+
+      <!-- FOOTER -->
+      <footer class="safelink-footer">
+        <p>
+          Safelink Tool &copy; 2026 &middot; Built with pure client-side AES by <a href="../../">Robbi Rizaldi</a>.
+        </p>
+      </footer>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="assets/js/cryptojs-aes.min.js?v=1792380000"></script>
+    <script src="assets/js/safelink.js?v=1792380000"></script>
+  </body>
+</html>
+
